@@ -1,5 +1,5 @@
 import {Response, Request} from "express";
-import {AppError} from "../utils/errorHandler";
+import {AppError} from "../utils/errorHandler.js";
 
 export const globalErrorHandler = (err: AppError, req: Request, res: Response) => {
     err.statusCode = err.statusCode || 500;

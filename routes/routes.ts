@@ -1,5 +1,5 @@
-import {getToken} from "../controller/authController";
-import {getPopular} from "../controller/profileController";
+import {getToken} from "../controller/authController.js";
+import {getLastResearch} from "../controller/profileController.js";
 import {Request, Response} from "express";
 import express from "express";
 
@@ -11,7 +11,7 @@ router.get("/", (req: Request, res: Response) => {
 
 
 router.get("/token", getToken)
-router.get("/popular", getPopular)
+router.get("/search/last", getLastResearch)
 
 
 export default router

@@ -19,5 +19,22 @@ export const fetchSpotifyToken = async () => {
         }
 
         return await response.json() as SpotifyTokenResponse
+}
 
+export const fetchArtists = async (token: string, artists: Array<string>) => {
+    try{
+        const response = await fetch(`https://api.spotify.com/v1/artists?ids=${artists.join(',')}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }})
+
+        if(!response.ok){
+            throw new Error('Error with token')
+        }
+        return  await response.json()
+    }catch(e){
+        throw new Error(`Error while connecting with spotify api ${e}`)
+    }
 }

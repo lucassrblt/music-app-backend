@@ -1,4 +1,4 @@
-class ResonseHandler<T>{
+class ResponseHandler<T>{
     data: T;
     message: string;
     success: boolean;
@@ -10,4 +10,4 @@ class ResonseHandler<T>{
     }
 }
 
-export default ResonseHandler;
+export default ResponseHandler;
