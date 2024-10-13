@@ -1,5 +1,6 @@
 import {FetchMethods, SpotifyTokenResponse} from "../types/spotify.js";
 import {fetcherFunction} from "../utils/fetcherFunction.js";
+import {AppError} from "../utils/errorHandler";
 
 export const fetchSpotifyToken = async () => {
     const params = new URLSearchParams({
@@ -42,44 +43,59 @@ export const fetchRelatedArtists = async (token: string, id: string) => {
         const url = `https://api.spotify.com/v1/artists/${id}/related-artists`
         const response = await fetcherFunction({url, method: FetchMethods.GET, token})
 
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error("Error with Spotify API response")
         }
 
         return await response.json()
 
-    }catch (e) {
+    } catch (e) {
         throw new Error(`Error while connecting with spotify api ${e}`)
     }
 }
 
 export const fetchArtistsAlbum = async (token: string, id: string) => {
-    try{
+    try {
         const url = `https://api.spotify.com/v1/artists/${id}/albums`
-        const response = await fetcherFunction({url, method: FetchMethods.GET ,token})
+        const response = await fetcherFunction({url, method: FetchMethods.GET, token})
 
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error("Error with Spotify API response")
         }
 
         return await response.json()
-    }catch (e) {
+    } catch (e) {
         throw new Error(`Error while connecting with spotify api ${e}`)
     }
 }
 
 export const fetchArtistTopTracks = async (token: string, id: string) => {
-    try{
+    try {
         const url = `https://api.spotify.com/v1/artists/${id}/top-tracks`
-        const response = await fetcherFunction({url, method : FetchMethods.GET, token})
+        const response = await fetcherFunction({url, method: FetchMethods.GET, token})
 
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error("Error with Spotify API response")
         }
 
         return await response.json()
-    }catch (e) {
+    } catch (e) {
         throw new Error(`Error while connecting with spotify api ${e}`)
 
+    }
+}
+
+
+export const fetchPlaylist = async (token: string, keyword: string) => {
+    try {
+        const url = `https://api.spotify.com/v1/browse/categories/${keyword}/playlists`
+        const response = await fetcherFunction({url, method: FetchMethods.GET, token})
+
+        if (!response.ok) {
+            throw new Error("Error with Spotify API response")
+        }
+        return await response.json()
+    } catch (e) {
+        throw new Error(`Error while connecting with spotify api ${e}`)
     }
 }
