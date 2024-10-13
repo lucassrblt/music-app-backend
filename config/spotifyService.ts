@@ -28,7 +28,7 @@ export const fetchArtists = async (token: string, artists: Array<string>) => {
         const response = await fetcherFunction({url, method: FetchMethods.GET, token})
 
         if (!response.ok) {
-            throw new Error('Error with token')
+            throw new Error("Error with Spotify API response")
         }
         return await response.json()
     } catch (e) {
@@ -43,7 +43,7 @@ export const fetchRelatedArtists = async (token: string, id: string) => {
         const response = await fetcherFunction({url, method: FetchMethods.GET, token})
 
         if(!response.ok){
-            throw new Error('Error with token')
+            throw new Error("Error with Spotify API response")
         }
 
         return await response.json()
@@ -59,11 +59,27 @@ export const fetchArtistsAlbum = async (token: string, id: string) => {
         const response = await fetcherFunction({url, method: FetchMethods.GET ,token})
 
         if(!response.ok){
-            throw new Error('Error with token')
+            throw new Error("Error with Spotify API response")
         }
 
         return await response.json()
     }catch (e) {
         throw new Error(`Error while connecting with spotify api ${e}`)
+    }
+}
+
+export const fetchArtistTopTracks = async (token: string, id: string) => {
+    try{
+        const url = `https://api.spotify.com/v1/artists/${id}/top-tracks`
+        const response = await fetcherFunction({url, method : FetchMethods.GET, token})
+
+        if(!response.ok){
+            throw new Error("Error with Spotify API response")
+        }
+
+        return await response.json()
+    }catch (e) {
+        throw new Error(`Error while connecting with spotify api ${e}`)
+
     }
 }
