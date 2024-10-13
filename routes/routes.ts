@@ -1,6 +1,5 @@
 import {getToken} from "../controller/authController.js";
 import {getLastResearch} from "../controller/profileController.js";
-import {Request, Response} from "express";
 import express from "express";
 import {getArtistAlbums, getArtistTopTracks, getRelatedArtists} from "../controller/artistController.js";
 

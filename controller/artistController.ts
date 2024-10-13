@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {AppError} from "../utils/errorHandler.js";
 import responseHandler from "../utils/responseHandler.js";
-import {fetchArtists, fetchArtistsAlbum, fetchArtistTopTracks, fetchRelatedArtists} from "../config/spotifyService.js";
+import {fetchArtistsAlbum, fetchArtistTopTracks, fetchRelatedArtists} from "../config/spotifyService.js";
 
 export const getRelatedArtists = async (req: Request, res: Response, next: NextFunction) => {
     try{
