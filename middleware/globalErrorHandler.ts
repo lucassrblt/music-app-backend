@@ -1,7 +1,7 @@
-import {Response, Request} from "express";
+import {Response, Request, NextFunction} from "express";
 import {AppError} from "../utils/errorHandler.js";
 
-export const globalErrorHandler = (err: AppError, req: Request, res: Response) => {
+export const globalErrorHandler = (err: AppError, req: Request, res: Response, next: NextFunction) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
 

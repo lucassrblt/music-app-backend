@@ -1,4 +1,5 @@
-import {SpotifyTokenResponse} from "../types/spotify";
+import {FetchMethods, SpotifyTokenResponse} from "../types/spotify.js";
+import {fetcherFunction} from "../utils/fetcherFunction.js";
 
 export const fetchSpotifyToken = async () => {
     const params = new URLSearchParams({
@@ -23,13 +24,8 @@ export const fetchSpotifyToken = async () => {
 
 export const fetchArtists = async (token: string, artists: Array<string>) => {
     try {
-        const response = await fetch(`https://api.spotify.com/v1/artists?ids=${artists.join(',')}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
+        const url = `https://api.spotify.com/v1/artists?ids=${artists.join(',')}`
+        const response = await fetcherFunction({url, method: FetchMethods.GET, token})
 
         if (!response.ok) {
             throw new Error('Error with token')
@@ -43,13 +39,8 @@ export const fetchArtists = async (token: string, artists: Array<string>) => {
 
 export const fetchRelatedArtists = async (token: string, id: string) => {
     try {
-        const response = await fetch(`https://api.spotify.com/v1/artists/${id}/related-artists`, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
+        const url = `https://api.spotify.com/v1/artists/${id}/related-artists`
+        const response = await fetcherFunction({url, method: FetchMethods.GET, token})
 
         if(!response.ok){
             throw new Error('Error with token')
@@ -57,6 +48,21 @@ export const fetchRelatedArtists = async (token: string, id: string) => {
 
         return await response.json()
 
+    }catch (e) {
+        throw new Error(`Error while connecting with spotify api ${e}`)
+    }
+}
+
+export const fetchArtistsAlbum = async (token: string, id: string) => {
+    try{
+        const url = `https://api.spotify.com/v1/artists/${id}/albums`
+        const response = await fetcherFunction({url, method: FetchMethods.GET ,token})
+
+        if(!response.ok){
+            throw new Error('Error with token')
+        }
+
+        return await response.json()
     }catch (e) {
         throw new Error(`Error while connecting with spotify api ${e}`)
     }
